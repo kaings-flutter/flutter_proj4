@@ -20,6 +20,8 @@ class ProductsGrid extends StatelessWidget {
         // In this case, it is BEST Practice to use `ChangeNotifierProvider.value` to avoid bug when
         // amount of data is increasing. As explained in main.dart, it is because `products[i]` is
         // existing data. We do not newly instantiate a class to provide to the provider!
+
+        // ChangeNotifierProvider will always clean the old data
         value: products[i],
         child: ProductItem(),
       ),

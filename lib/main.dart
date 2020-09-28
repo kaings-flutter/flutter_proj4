@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       //        provide to ChangeNotifierProvider (e.g. just like in ProductsGrid widget)
       //        usually part of a List or Grid
 
+      // ChangeNotifierProvider will always clean the old data
       create: (ctx) => Products(),
       child: MaterialApp(
         title: 'MyShop',
