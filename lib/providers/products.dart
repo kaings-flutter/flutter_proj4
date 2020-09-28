@@ -44,6 +44,10 @@ class Products with ChangeNotifier {
     ]; // use spread operator to create instance instead of the array itself to avoid being mutated
   }
 
+  Product findById(String id) {
+    return _items.firstWhere((item) => item.id == id);
+  }
+
   void addProduct() {
     // add items logic here.....
     notifyListeners();

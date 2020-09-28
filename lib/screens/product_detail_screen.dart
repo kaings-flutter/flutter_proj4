@@ -11,9 +11,7 @@ class ProductDetailScreen extends StatelessWidget {
 
     // since ProductDetailScreen also a child of MyApp widget, we can listen to Products state
     final productsData = Provider.of<Products>(context);
-    final products = productsData.items;
-    final loadedProduct =
-        products.firstWhere((product) => product.id == productId);
+    final loadedProduct = productsData.findById(productId);
 
     return Scaffold(
       appBar: AppBar(
