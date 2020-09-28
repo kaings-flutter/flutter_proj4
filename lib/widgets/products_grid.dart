@@ -14,9 +14,13 @@ class ProductsGrid extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
       itemCount: products.length,
-      itemBuilder: (ctx, i) => ChangeNotifierProvider(
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         // set provider to each individual Product (since each product has their own favorite state)
-        create: (ctx) => products[i],
+
+        // In this case, it is BEST Practice to use `ChangeNotifierProvider.value` to avoid bug when
+        // amount of data is increasing. As explained in main.dart, it is because `products[i]` is
+        // existing data. We do not newly instantiate a class to provide to the provider!
+        value: products[i],
         child: ProductItem(),
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
