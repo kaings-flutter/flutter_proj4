@@ -38,7 +38,13 @@ class Products with ChangeNotifier {
     ),
   ];
 
+  var _showFavorite = false;
+
   List<Product> get items {
+    if (_showFavorite == true) {
+      return _items.where((item) => item.isFavorite).toList();
+    }
+
     return [
       ..._items
     ]; // use spread operator to create instance instead of the array itself to avoid being mutated
@@ -50,6 +56,16 @@ class Products with ChangeNotifier {
 
   void addProduct() {
     // add items logic here.....
+    notifyListeners();
+  }
+
+  void showFavorite() {
+    _showFavorite = true;
+    notifyListeners();
+  }
+
+  void showAll() {
+    _showFavorite = false;
     notifyListeners();
   }
 }
