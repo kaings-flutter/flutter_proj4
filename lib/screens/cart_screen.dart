@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/cart.dart';
+import '../widgets/cart_item.dart';
+import '../providers/cart.dart' show Cart;
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart-screen';
@@ -47,7 +48,24 @@ class CartScreen extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: ListView.builder(
+                // have to use `cart.items.length` because ListView.builder will
+                // then take & pass `cart.items` to itemBuilder
+                // !!!!! `cart.items.length` is not just about the itemCount. Therefore,
+                // cannot use `cart.itemCount` !!!!!
+                itemCount: cart.items.length,
+                itemBuilder: (ctx, idx) => CartItem(
+                      id: cart.items.values.toList()[idx].id,
+                      title: cart.items.values.toList()[idx].title,
+                      quantity: cart.items.values.toList()[idx].quantity,
+                      price: cart.items.values.toList()[idx].price,
+                    )),
+          ),
         ],
       ),
     );
