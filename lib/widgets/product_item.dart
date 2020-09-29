@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../screens/product_detail_screen.dart';
 import '../providers/product.dart';
+import '../providers/cart.dart';
 
 class ProductItem extends StatelessWidget {
   @override
@@ -17,6 +18,10 @@ class ProductItem extends StatelessWidget {
       // Therefore, any other changes after the first time won't be listened
       listen: false,
     );
+    final cart = Provider.of<Cart>(
+      context,
+      listen: false,
+    ); // `listen` to false because we just need to access the function call (No Need to listen to the state)
 
     print('this part of widget is rebuilt only ONCE!');
 
@@ -65,7 +70,13 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             icon: Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
-            onPressed: () {},
+            onPressed: () {
+              cart.addItem(
+                product.id,
+                product.price,
+                product.title,
+              );
+            },
           ),
         ),
       ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/products_grid.dart';
+import '../widgets/badge.dart';
+import '../providers/cart.dart';
 
 enum DisplayOptions {
   ShowFavorites,
@@ -21,6 +24,16 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
       appBar: AppBar(
         title: Text('MyShop'),
         actions: [
+          Consumer<Cart>(
+            builder: (ctx, cart, cartConsumerChild) => Badge(
+              child: IconButton(
+                icon: Icon(
+                  Icons.shopping_cart,
+                ),
+              ),
+              value: cart.itemCount.toString(),
+            ),
+          ),
           PopupMenuButton(
             onSelected: (DisplayOptions selectedValue) {
               print('selectedValue..... $selectedValue');
