@@ -26,12 +26,16 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
         actions: [
           Consumer<Cart>(
             builder: (ctx, cart, cartConsumerChild) => Badge(
-              child: IconButton(
-                icon: Icon(
-                  Icons.shopping_cart,
-                ),
-              ),
+              // since IconButton no need to rebuild (only value needs to rebuild),
+              // we can put IconButton in child of Consumer which is then pass via 3rd arguments
+              // `cartConsumerChild`. This widget here will NOT be rebuilt!
+              child: cartConsumerChild,
               value: cart.itemCount.toString(),
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
             ),
           ),
           PopupMenuButton(
