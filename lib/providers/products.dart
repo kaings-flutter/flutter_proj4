@@ -38,16 +38,20 @@ class Products with ChangeNotifier {
     ),
   ];
 
-  var _showFavorite = false;
+  // var _showFavorite = false;
 
   List<Product> get items {
-    if (_showFavorite == true) {
-      return _items.where((item) => item.isFavorite).toList();
-    }
+    // if (_showFavorite == true) {
+    //   return _items.where((item) => item.isFavorite).toList();
+    // }
 
     return [
       ..._items
     ]; // use spread operator to create instance instead of the array itself to avoid being mutated
+  }
+
+  List<Product> get favoriteItems {
+    return _items.where((item) => item.isFavorite).toList();
   }
 
   Product findById(String id) {
@@ -59,13 +63,13 @@ class Products with ChangeNotifier {
     notifyListeners();
   }
 
-  void showFavorite() {
-    _showFavorite = true;
-    notifyListeners();
-  }
+  // void showFavorite() {
+  //   _showFavorite = true;
+  //   notifyListeners();
+  // }
 
-  void showAll() {
-    _showFavorite = false;
-    notifyListeners();
-  }
+  // void showAll() {
+  //   _showFavorite = false;
+  //   notifyListeners();
+  // }
 }

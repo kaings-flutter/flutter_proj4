@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../widgets/products_grid.dart';
-import '../providers/products.dart';
 
 enum DisplayOptions {
   ShowFavorites,
   ShowAll,
 }
 
-class ProductOverviewScreen extends StatelessWidget {
+class ProductOverviewScreen extends StatefulWidget {
+  @override
+  _ProductOverviewScreenState createState() => _ProductOverviewScreenState();
+}
+
+class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
+  var _showFavoriteOnly = false;
+
   @override
   Widget build(BuildContext context) {
-    // listen set to false is because we are only interested to access the function showFavorite() & showAll(). NOT to listen to products state
-    final productContainer = Provider.of<Products>(context, listen: false);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('MyShop'),
@@ -23,13 +25,13 @@ class ProductOverviewScreen extends StatelessWidget {
             onSelected: (DisplayOptions selectedValue) {
               print('selectedValue..... $selectedValue');
 
-              if (selectedValue == DisplayOptions.ShowFavorites) {
-                //
-                productContainer.showFavorite();
-              } else {
-                //
-                productContainer.showAll();
-              }
+              setState(() {
+                if (selectedValue == DisplayOptions.ShowFavorites) {
+                  _showFavoriteOnly = true;
+                } else {
+                  _showFavoriteOnly = false;
+                }
+              });
             },
             icon: Icon(
               Icons.more_vert,
@@ -47,7 +49,7 @@ class ProductOverviewScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ProductsGrid(),
+      body: ProductsGrid(_showFavoriteOnly),
     );
   }
 }
